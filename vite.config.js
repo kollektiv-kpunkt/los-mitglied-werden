@@ -11,4 +11,9 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    resolve: {
+        alias: {
+            '@fonts': '/resources/css/typography/fonts',
+        },
+    }
 });

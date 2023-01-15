@@ -1,0 +1,16 @@
+.los-button {
+    line-height: 0.8;
+    display: block;
+    padding: 1rem 3rem;
+    background-color: var(--buttonbg);
+    color: var(--buttoncolor);
+    font-weight: bold;
+
+    --buttonbg: var(--accent);
+    --buttoncolor: white;
+
+    &.los-button-more::after {
+        content: "\eaa0";
+        font-family: IcoFont;
+    }
+}

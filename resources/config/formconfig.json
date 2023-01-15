@@ -1,0 +1,9 @@
+{
+  "steps": {
+    "welcome": {
+      "type": "welcome",
+      "title": "welcome.title",
+      "text": "welcome.text"
+    }
+  }
+}

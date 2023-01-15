@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import "root.scss";
+
+@import "elements/style.scss";
+
+@import "typography/style.scss";

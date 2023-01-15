@@ -1,0 +1,29 @@
+// elements/background.scss
+// Path: resources/css/elements/background.scss
+
+.los-app-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+
+    img {
+        width: 75%;
+        margin-left: auto;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 25%;
+    }
+
+    .los-app-bg-blind {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: linear-gradient(90deg, #010E1F 40.5%, rgba(1, 14, 31, 0) 49.41%);
+        z-index: 3;
+    }
+}
