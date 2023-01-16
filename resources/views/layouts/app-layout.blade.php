@@ -7,9 +7,9 @@
     <title>{{$title}}</title>
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
 </head>
-<body {{$attributes}}>
+<body {{$attributes}} style="--vh: 1vh">
 
-    <nav class="fixed top-0 left-0 w-full">
+    <nav class="fixed top-0 left-0 w-full z-50">
         <div class="los-app-container pt-4">
             <a href="/" class="flex items-center gap-x-6">
                 <img src="{{asset('images/logo.svg')}}" alt="Logo">

@@ -11,6 +11,12 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    server: {
+        hmr: {
+            protocol: 'wss',
+            host: 'pn71.ddev.site',
+        }
+    },
     resolve: {
         alias: {
             '@fonts': '/resources/css/typography/fonts',

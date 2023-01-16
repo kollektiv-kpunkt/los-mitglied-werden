@@ -1,5 +1,74 @@
 {
   "steps": {
+    "membertype": {
+      "type": "radio",
+      "title": "membertype.title",
+      "direction": "vertical",
+      "name": "membertype",
+      "choices": [
+        {
+          "label": "membertype.regular.label",
+          "value": "regular"
+        },
+        {
+          "label": "membertype.reduced.label",
+          "value": "reduced"
+        },
+        {
+          "label": "membertype.u20.label",
+          "value": "u20"
+        },
+        {
+          "label": "membertype.couple.label",
+          "value": "couple"
+        },
+        {
+          "label": "membertype.group.label",
+          "value": "group"
+        },
+        {
+          "label": "membertype.supporter.label",
+          "value": "supporter"
+        }
+      ]
+    },
+    "salutation": {
+      "type": "radio",
+      "title": "salutation.title",
+      "name": "salutation",
+      "choices": [
+        {
+          "label": "salutation.mrs.label",
+          "value": "mrs"
+        },
+        {
+          "label": "salutation.mr.label",
+          "value": "mr"
+        },
+        {
+          "label": "salutation.neutral.label",
+          "value": "neutral"
+        }
+      ]
+    },
+    "name": {
+      "type": "inputs",
+      "title": "name.title",
+      "fields": [
+        {
+          "name": "fname",
+          "type": "text",
+          "label": "fname.label",
+          "required": true
+        },
+        {
+          "name": "lname",
+          "type": "text",
+          "label": "lname.label",
+          "required": true
+        }
+      ]
+    },
     "welcome": {
       "type": "welcome",
       "title": "welcome.title",

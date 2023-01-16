@@ -1,4 +1,15 @@
 {
   "welcome.title": "Unterstütze die LOS!",
-  "welcome.text": "Viverra non eu lorem leo nisl neque. Blandit diam integer justo in neque pulvinar augue lectus faucibus. Eros nulla quam id ipsum suscipit nisl. Lectus consequat in quis at pretium nibh odio. Lectus tristique ut tincidunt commodo blandit suspendisse ut commodo sit."
+  "welcome.text": "Viverra non eu lorem leo nisl neque. Blandit diam integer justo in neque pulvinar augue lectus faucibus. Eros nulla quam id ipsum suscipit nisl. Lectus consequat in quis at pretium nibh odio. Lectus tristique ut tincidunt commodo blandit suspendisse ut commodo sit.",
+  "salutation.title": "Wie sollen wir dich anschreiben?",
+  "salutation.mrs.label": "Liebe",
+  "salutation.mr.label": "Lieber",
+  "salutation.neutral.label": "Hallo",
+  "membertype.title": "Ich melde mich an als...",
+  "membertype.regular.label": "reguläres Mitglied (150 CHF)",
+  "membertype.reduced.label": "Mitglied mit reduziertem Beitrag (80 CHF)",
+  "membertype.u20.label": "Mitglied unter 20 (30 CHF)",
+  "membertype.couple.label": "Mitpaar (250 CHF)",
+  "membertype.group.label": "Mitgruppe (300 CHF)",
+  "membertype.supporter.label": "Unterstützer:in (100 CHF oder mehr)"
 }
