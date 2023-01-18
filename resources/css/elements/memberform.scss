@@ -35,8 +35,23 @@
             margin: auto;
         }
 
-        &:not(.active) {
+        transition: 0.2s ease transform,
+        0.2s ease visibility;
+
+        &.past {
+            transform: translateY(-100%);
+            visibility: hidden;
+        }
+
+        &.future {
             transform: translateY(100%);
+            visibility: hidden;
+        }
+
+        form {
+            .los-input-submit-wrapper {
+                transition: 0.2s ease max-height;
+            }
         }
     }
 }

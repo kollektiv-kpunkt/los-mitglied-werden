@@ -1,22 +1,20 @@
 <?php
 
-namespace App\View\Components\Form;
+namespace App\View\Components\Form\Contentblocks;
 
 use Illuminate\View\Component;
 
-class Input extends Component
+class buttons extends Component
 {
-    public $field;
-    public $value;
+    public $block;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($field, $value)
+    public function __construct($block)
     {
-        $this->field = $field;
-        $this->value = $value;
+        $this->block = $block;
     }
 
     /**
@@ -26,6 +24,6 @@ class Input extends Component
      */
     public function render()
     {
-        return view('components.form.input');
+        return view('components.form.contentblocks.buttons');
     }
 }

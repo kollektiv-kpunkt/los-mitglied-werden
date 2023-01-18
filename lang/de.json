@@ -11,5 +11,9 @@
   "membertype.u20.label": "Mitglied unter 20 (30 CHF)",
   "membertype.couple.label": "Mitpaar (250 CHF)",
   "membertype.group.label": "Mitgruppe (300 CHF)",
-  "membertype.supporter.label": "Unterstützer:in (100 CHF oder mehr)"
+  "membertype.supporter.label": "Unterstützer:in (100 CHF oder mehr)",
+
+
+
+  "error.uuid.invalid": "Ungültige ID"
 }

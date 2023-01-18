@@ -4,19 +4,17 @@ namespace App\View\Components\Form;
 
 use Illuminate\View\Component;
 
-class Input extends Component
+class Contentblocks extends Component
 {
-    public $field;
-    public $value;
+    public $step;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($field, $value)
+    public function __construct($step)
     {
-        $this->field = $field;
-        $this->value = $value;
+        $this->step = $step;
     }
 
     /**
@@ -26,6 +24,6 @@ class Input extends Component
      */
     public function render()
     {
-        return view('components.form.input');
+        return view('components.form.contentblocks');
     }
 }

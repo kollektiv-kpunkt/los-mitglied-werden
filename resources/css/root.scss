@@ -1,4 +1,15 @@
 :root {
     --accent: #D60B52;
+    --accent2: #F6932B;
     --background: #010E1F;
+}
+
+*:focus {
+    outline: 2px solid var(--accent2);
+    outline-offset: -2px;
+}
+
+::selection {
+    background-color: var(--accent);
+    color: white;
 }

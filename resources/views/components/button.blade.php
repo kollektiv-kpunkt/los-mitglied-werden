@@ -1,3 +1,3 @@
-<a {{$attributes->merge(["class" => "los-button"])}}>
+<{{$markup}} {{$attributes->merge(["class" => "los-button"])}}>
     {{ $slot }}
-</a>
+</{{$markup}}>

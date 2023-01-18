@@ -8,15 +8,17 @@ class Inputs extends Component
 {
     public $step;
     public $key;
+    public $supporter;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($step, $key)
+    public function __construct($step, $key, $supporter)
     {
         $this->step = $step;
         $this->key = $key;
+        $this->supporter = $supporter;
     }
 
     /**

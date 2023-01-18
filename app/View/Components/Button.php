@@ -6,14 +6,15 @@ use Illuminate\View\Component;
 
 class Button extends Component
 {
+    public $markup;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($markup = "a")
     {
-        //
+        $this->markup = $markup;
     }
 
     /**

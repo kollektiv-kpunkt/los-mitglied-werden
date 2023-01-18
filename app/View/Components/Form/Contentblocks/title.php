@@ -1,22 +1,20 @@
 <?php
 
-namespace App\View\Components\Form;
+namespace App\View\Components\Form\Contentblocks;
 
 use Illuminate\View\Component;
 
-class Radio extends Component
+class title extends Component
 {
-    public $step;
-    public $key;
+    public $block;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($step, $key)
+    public function __construct($block)
     {
-        $this->step = $step;
-        $this->key = $key;
+        $this->block = $block;
     }
 
     /**
@@ -26,6 +24,6 @@ class Radio extends Component
      */
     public function render()
     {
-        return view('components.form.radio');
+        return view('components.form.contentblocks.title');
     }
 }

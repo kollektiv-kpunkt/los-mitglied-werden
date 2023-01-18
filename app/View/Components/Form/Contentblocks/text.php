@@ -1,20 +1,20 @@
 <?php
 
-namespace App\View\Components\Form;
+namespace App\View\Components\Form\Contentblocks;
 
 use Illuminate\View\Component;
 
-class Welcome extends Component
+class text extends Component
 {
-    public $step;
+    public $block;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($step)
+    public function __construct($block)
     {
-        $this->step = $step;
+        $this->block = $block;
     }
 
     /**
@@ -24,6 +24,6 @@ class Welcome extends Component
      */
     public function render()
     {
-        return view('components.form.welcome');
+        return view('components.form.contentblocks.text');
     }
 }

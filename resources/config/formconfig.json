@@ -1,10 +1,73 @@
 {
   "steps": {
+    "welcome": {
+      "type": "contentblocks",
+      "blocks": [
+        {
+          "type": "title",
+          "size": "h1",
+          "content": "welcome.title",
+          "class": "text-white text-6xl font-bold mb-6"
+        },
+        {
+          "type": "text",
+          "content": "welcome.text",
+          "class": "text-white text-2xl mb-6"
+        },
+        {
+          "type": "buttons",
+          "buttons": [
+            {
+              "label": "button.member",
+              "markup": "button",
+              "type": "los-memberform",
+              "class": "los-button-next text-xl",
+              "action": "func:s_type_init(member)|goto:name"
+            },
+            {
+              "label": "button.activist",
+              "markup": "button",
+              "type": "los-memberform",
+              "class": "los-button-next text-xl los-button-neg",
+              "action": "func:s_type_init(activist)|goto:name"
+            }
+          ]
+        }
+      ]
+    },
+    "name": {
+      "type": "inputs",
+      "title": "name.title",
+      "fields": [
+        {
+          "name": "fname",
+          "type": "text",
+          "label": "fname.label",
+          "required": true
+        },
+        {
+          "name": "lname",
+          "type": "text",
+          "label": "lname.label",
+          "required": true
+        }
+      ],
+      "validation": {
+        "fname": {
+          "presence": true
+        },
+        "lname": {
+          "presence": true
+        }
+      },
+      "next": "membertype"
+    },
     "membertype": {
-      "type": "radio",
+      "type": "radios",
       "title": "membertype.title",
       "direction": "vertical",
       "name": "membertype",
+      "required": true,
       "choices": [
         {
           "label": "membertype.regular.label",
@@ -30,10 +93,16 @@
           "label": "membertype.supporter.label",
           "value": "supporter"
         }
-      ]
+      ],
+      "validation": {
+        "membertype": {
+          "presence": true
+        }
+      },
+      "next": "salutation"
     },
     "salutation": {
-      "type": "radio",
+      "type": "radios",
       "title": "salutation.title",
       "name": "salutation",
       "choices": [
@@ -49,30 +118,12 @@
           "label": "salutation.neutral.label",
           "value": "neutral"
         }
-      ]
-    },
-    "name": {
-      "type": "inputs",
-      "title": "name.title",
-      "fields": [
-        {
-          "name": "fname",
-          "type": "text",
-          "label": "fname.label",
-          "required": true
-        },
-        {
-          "name": "lname",
-          "type": "text",
-          "label": "lname.label",
-          "required": true
+      ],
+      "validation": {
+        "salutation": {
+          "presence": true
         }
-      ]
-    },
-    "welcome": {
-      "type": "welcome",
-      "title": "welcome.title",
-      "text": "welcome.text"
+      }
     }
   }
 }

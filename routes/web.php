@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use App\Http\Controllers\SupporterController;
 use App\Models\Supporter;
-use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,25 +18,18 @@ use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     $cookies = request()->cookie();
-    $existingSupporter = array_filter($cookies, function($key) {
+    $existingCookie = array_keys(array_filter($cookies, function($key) {
         return Str::startsWith($key, "supporter_");
-    }, ARRAY_FILTER_USE_KEY);
-    if (count($existingSupporter) > 0) {
-        $uuid = array_keys($existingSupporter)[0];
-        $uuid = str_replace("supporter_", "", $uuid);
-        return redirect()->route('supporter.show', ['uuid' => $uuid]);
-    } else {
-        $uuid = Str::uuid()->toString();
-        $logfile = "supporters/{$uuid}_logfile.log";
-        Storage::disk('local')->put($logfile, json_encode(array()));
-        $supporter = new Supporter([
-            'uuid' => $uuid,
-            'logfile' => $logfile
-        ]);
-        cookie()->queue(cookie("supporter_" . $uuid, json_encode(array()), 60));
-        $supporter->save();
-        return redirect()->route('supporter.show', ['uuid' => $uuid]);
-    }
-});
+    }, ARRAY_FILTER_USE_KEY))[0] ?? Str::uuid()->toString();
+    $uuid = str_replace("supporter_", "", $existingCookie);
+    $supporter = new Supporter([
+        'uuid' => $uuid,
+    ]);
+    $supporter->prepare();
+    cookie()->queue(cookie("supporter_" . $supporter->uuid, json_encode(array()), 15));
+    return redirect()->route('supporter.show', ['uuid' => $supporter->uuid]);
+})->name('home');
+
+Route::post("s/update", [SupporterController::class, 'update'])->name("supporter.update");
 
 Route::get("s/{uuid}", [SupporterController::class, 'show'])->name("supporter.show");
