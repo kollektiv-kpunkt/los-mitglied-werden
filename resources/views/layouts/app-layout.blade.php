@@ -13,10 +13,10 @@
         <div class="los-app-container pt-4">
             <a href="/" class="flex items-center gap-x-6 w-fit">
                 <img src="{{asset('images/logo.svg')}}" alt="Logo">
-                <div class="text-white">
+                {{-- <div class="text-white">
                     <p class="font-bold text-2xl">{{__("claim.title")}}</p>
                     <p class="">{{__("claim.subtitle")}}</p>
-                </div>
+                </div> --}}
             </a>
         </div>
     </nav>

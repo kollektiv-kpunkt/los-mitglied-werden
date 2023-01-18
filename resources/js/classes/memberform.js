@@ -11,6 +11,7 @@ class MemberForm {
         document.addEventListener('DOMContentLoaded', () => {
             this.initButtons();
             this.initForms();
+            this.initChoices();
         });
 
         this.s_type_init = this.s_type_init.bind(this);
@@ -44,6 +45,17 @@ class MemberForm {
         });
     }
 
+    initChoices() {
+        document.querySelectorAll(".los-input-choices-group").forEach((group) => {
+            group.querySelector("label").addEventListener("keydown", (e) => {
+                if (e.key == "Enter") {
+                    e.preventDefault();
+                    group.querySelector("label").click();
+                }
+            });
+        });
+    }
+
     validateForm(form) {
         if (!form.dataset.validation) {
             form.querySelector(".los-input-submit-wrapper").style.maxHeight = form.querySelector(".los-input-submit-wrapper").scrollHeight + "px";
@@ -58,11 +70,14 @@ class MemberForm {
     }
 
     async submitForm(form) {
-        let response = {
-            status: "success",
-            supporter: this.supporter,
-            next: form.querySelector(["[type='submit']"]).dataset.next
-        }
+        let formData = new FormData(form);
+        formData.append("uuid", window.__lmf._uuid);
+        formData.append("next", form.querySelector("button[type='submit']").dataset.next);
+        let response = await fetch(form.action, {
+            method: "POST",
+            body: formData
+        });
+        response = await response.json();
         return response;
     }
 

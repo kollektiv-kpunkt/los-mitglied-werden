@@ -36,7 +36,8 @@ class SupporterController extends Controller
         return response()->json([
             'status' => 'success',
             'message' => __("success.supporter.update"),
-            'supporter' => $supporter
+            'supporter' => $supporter,
+            "next" => $req["next"] ?? null
         ]);
     }
 }
