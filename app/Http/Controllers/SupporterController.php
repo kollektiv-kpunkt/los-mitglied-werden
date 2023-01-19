@@ -14,7 +14,11 @@ class SupporterController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('home');
         }
-        $supporter->readJSON();
+        try {
+            $supporter->readJSON();
+        } catch (\Exception $e) {
+            return redirect()->route('home');
+        }
         return view('supporter.show', ['supporter' => $supporter]);
     }
 
@@ -33,11 +37,12 @@ class SupporterController extends Controller
             $supporter->$key = $value;
         }
         $supporter->writeJSON();
+        $supporter->determineNext($req["next"] ?? null, $supporter);
         return response()->json([
             'status' => 'success',
             'message' => __("success.supporter.update"),
             'supporter' => $supporter,
-            "next" => $req["next"] ?? null
+            "next" => $supporter->next
         ]);
     }
 }

@@ -22,14 +22,14 @@
               "markup": "button",
               "type": "los-memberform",
               "class": "los-button-next text-xl",
-              "action": "func:s_type_init(member)|goto:name"
+              "action": "func:s_type_init(member, welcome)|goto:name"
             },
             {
               "label": "button.activist",
               "markup": "button",
               "type": "los-memberform",
               "class": "los-button-next text-xl los-button-neg",
-              "action": "func:s_type_init(activist)|goto:name"
+              "action": "func:s_type_init(activist, welcome)|goto:name"
             }
           ]
         }
@@ -60,7 +60,74 @@
           "presence": true
         }
       },
-      "next": "membertype"
+      "next": "salutation"
+    },
+    "salutation": {
+      "type": "radios",
+      "title": "salutation.title",
+      "name": "salutation",
+      "choices": [
+        {
+          "label": "salutation.mrs.label",
+          "value": "mrs"
+        },
+        {
+          "label": "salutation.mr.label",
+          "value": "mr"
+        },
+        {
+          "label": "salutation.neutral.label",
+          "value": "neutral"
+        }
+      ],
+      "validation": {
+        "salutation": {
+          "presence": true
+        }
+      },
+      "next": "email"
+    },
+    "email": {
+      "type": "inputs",
+      "title": "email.title",
+      "fields": [
+        {
+          "name": "email",
+          "type": "email",
+          "label": "email.label",
+          "size": "-w-full",
+          "required": true
+        }
+      ],
+      "validation": {
+        "email": {
+          "presence": true,
+          "email": true
+        }
+      },
+      "next": "phone"
+    },
+    "phone": {
+      "type": "inputs",
+      "title": "phone.title",
+      "fields": [
+        {
+          "name": "phone",
+          "type": "tel",
+          "label": "phone.label",
+          "size": "-w-full",
+          "placeholder": "placeholder.optional"
+        }
+      ],
+      "validation": {
+        "phone": {
+          "format": "^((0041|0)|\\B\\+41)(\\s?\\(0\\))?(\\s)?[1-9]{2}(\\s)?[0-9]{3}(\\s)?[0-9]{2}(\\s)?[0-9]{2}$"
+        }
+      },
+      "next": {
+        "type_activist": "supporttype",
+        "ELSE": "membertype"
+      }
     },
     "membertype": {
       "type": "radios",
@@ -99,31 +166,260 @@
           "presence": true
         }
       },
-      "next": "salutation"
+      "next": "address"
     },
-    "salutation": {
-      "type": "radios",
-      "title": "salutation.title",
-      "name": "salutation",
-      "choices": [
+    "address": {
+      "type": "inputs",
+      "title": "address.title",
+      "fields": [
         {
-          "label": "salutation.mrs.label",
-          "value": "mrs"
+          "name": "street",
+          "type": "text",
+          "label": "street.label",
+          "required": true,
+          "size": "-w-full"
         },
         {
-          "label": "salutation.mr.label",
-          "value": "mr"
+          "name": "zip",
+          "type": "text",
+          "label": "zip.label",
+          "required": true
         },
         {
-          "label": "salutation.neutral.label",
-          "value": "neutral"
+          "name": "city",
+          "type": "text",
+          "label": "city.label",
+          "required": true
         }
       ],
       "validation": {
-        "salutation": {
+        "street": {
+          "presence": true
+        },
+        "zip": {
+          "presence": true
+        },
+        "city": {
           "presence": true
         }
-      }
+      },
+      "next": "lang"
+    },
+    "lang": {
+      "type": "radios",
+      "title": "lang.title",
+      "name": "lang",
+      "choices": [
+        {
+          "label": "lang.de.label",
+          "value": "de"
+        },
+        {
+          "label": "lang.fr.label",
+          "value": "fr"
+        },
+        {
+          "label": "lang.it.label",
+          "value": "it"
+        },
+        {
+          "label": "lang.en.label",
+          "value": "en"
+        }
+      ],
+      "validation": {
+        "lang": {
+          "presence": true
+        }
+      },
+      "next": "birthyear"
+    },
+    "birthyear": {
+      "type": "inputs",
+      "title": "birthyear.title",
+      "fields": [
+        {
+          "name": "birthyear",
+          "type": "number",
+          "label": "birthyear.label",
+          "required": true,
+          "size": "-w-full"
+        }
+      ],
+      "validation": {
+        "birthyear": {
+          "presence": true
+        }
+      },
+      "next": "notes"
+    },
+    "notes": {
+      "type": "inputs",
+      "title": "notes.title",
+      "fields": [
+        {
+          "name": "notes",
+          "type": "text",
+          "label": "notes.label",
+          "size": "-w-full"
+        }
+      ],
+      "validation": {
+        "notes": {}
+      },
+      "next": "cta"
+    },
+    "cta": {
+      "type": "contentblocks",
+      "blocks": [
+        {
+          "type": "title",
+          "size": "h1",
+          "content": "cta.title",
+          "class": "text-white text-6xl font-bold mb-6"
+        },
+        {
+          "type": "text",
+          "content": "cta.text",
+          "class": "text-white text-2xl mb-6"
+        },
+        {
+          "type": "buttons",
+          "buttons": [
+            {
+              "label": "button.activist",
+              "markup": "button",
+              "type": "los-memberform",
+              "class": "los-button-next los-button-neg text-xl",
+              "action": "func:s_type_add(activist, cta)|goto:supporttype"
+            },
+            {
+              "label": "button.rather-not",
+              "markup": "button",
+              "type": "los-memberform",
+              "class": "los-button-next text-xl",
+              "action": "goto:thanks"
+            }
+          ]
+        }
+      ]
+    },
+    "supporttype": {
+      "type": "radios",
+      "title": "supporttype.title",
+      "direction": "vertical",
+      "name": "supporttype",
+      "required": true,
+      "choices": [
+        {
+          "label": "supporttype.homepage.label",
+          "value": "homepage"
+        },
+        {
+          "label": "supporttype.events.label",
+          "value": "events"
+        },
+        {
+          "label": "supporttype.demos.label",
+          "value": "demos"
+        },
+        {
+          "label": "supporttype.lectorate.label",
+          "value": "lectorate"
+        },
+        {
+          "label": "supporttype.translation.label",
+          "value": "translation"
+        },
+        {
+          "label": "supporttype.photography.label",
+          "value": "photography"
+        },
+        {
+          "label": "supporttype.catering.label",
+          "value": "catering"
+        },
+        {
+          "label": "supporttype.barkeeping.label",
+          "value": "barkeeping"
+        },
+        {
+          "label": "supporttype.socialmedia.label",
+          "value": "socialmedia"
+        },
+        {
+          "label": "supporttype.meetingpoints.label",
+          "value": "meetingpoints"
+        },
+        {
+          "label": "supporttype.graphicdesign.label",
+          "value": "graphicdesign"
+        },
+        {
+          "label": "supporttype.other.label",
+          "value": "other"
+        }
+      ],
+      "validation": {
+        "supporttype": {
+          "presence": true
+        }
+      },
+      "next": "locations"
+    },
+    "locations": {
+      "type": "radios",
+      "title": "locations.title",
+      "direction": "horizontal",
+      "name": "locations",
+      "choices": [
+        {
+          "label": "locations.zuerich.label",
+          "value": "zuerich"
+        },
+        {
+          "label": "locations.bern.label",
+          "value": "bern"
+        },
+        {
+          "label": "locations.luzern.label",
+          "value": "luzern"
+        },
+        {
+          "label": "locations.basel.label",
+          "value": "basel"
+        },
+        {
+          "label": "locations.winterthur.label",
+          "value": "winterthur"
+        },
+        {
+          "label": "locations.stgallen.label",
+          "value": "stgallen"
+        }
+      ],
+      "validation": {
+        "locations": {
+          "presence": true
+        }
+      },
+      "next": "thanks"
+    },
+    "thanks": {
+      "type": "contentblocks",
+      "blocks": [
+        {
+          "type": "title",
+          "size": "h1",
+          "content": "thanks.title",
+          "class": "text-white text-6xl font-bold mb-6"
+        },
+        {
+          "type": "text",
+          "content": "thanks.text",
+          "class": "text-white text-2xl mb-6"
+        }
+      ]
     }
   }
 }

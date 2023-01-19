@@ -6,15 +6,27 @@ class MemberForm {
             window.__lmf = this;
         }
         this._uuid = document.querySelector(".los-memberform-base").dataset.supporterUuid;
-        this.history = [];
+        this._h = new Set();
+        this.history = Array.from(this._h);
         this.supporter = {};
         document.addEventListener('DOMContentLoaded', () => {
             this.initButtons();
             this.initForms();
             this.initChoices();
+            this.initHistory();
+            if (document.querySelector(".los-memberform-step-container.active form")) {
+                this.validateForm(document.querySelector(".los-memberform-step-container.active form"));
+            }
         });
 
         this.s_type_init = this.s_type_init.bind(this);
+        this.s_type_add = this.s_type_add.bind(this);
+        this.addHistory = this.addHistory.bind(this);
+    }
+
+    addHistory(h) {
+        this._h.add(h);
+        this.history = Array.from(this._h);
     }
 
     initButtons() {
@@ -56,6 +68,15 @@ class MemberForm {
         });
     }
 
+    initHistory() {
+        let history = document.querySelector(".los-memberform-base").dataset.supporterHistory;
+        if (history) {
+            history = JSON.parse(history);
+            this._h = new Set(history);
+            this.history = Array.from(this._h);
+        }
+    }
+
     validateForm(form) {
         if (!form.dataset.validation) {
             form.querySelector(".los-input-submit-wrapper").style.maxHeight = form.querySelector(".los-input-submit-wrapper").scrollHeight + "px";
@@ -73,11 +94,14 @@ class MemberForm {
         let formData = new FormData(form);
         formData.append("uuid", window.__lmf._uuid);
         formData.append("next", form.querySelector("button[type='submit']").dataset.next);
+        this.addHistory(form.closest(".los-memberform-step-container").dataset.stepKey);
+        formData.append("history", JSON.stringify(this.history));
         let response = await fetch(form.action, {
             method: "POST",
             body: formData
         });
         response = await response.json();
+        console.log(response);
         return response;
     }
 
@@ -116,7 +140,6 @@ class MemberForm {
             nextStep = document.querySelector(".los-memberform-step-container[data-step-key='" + step + "']");
         } else {
             nextStep = document.querySelector(".los-memberform-step-container[data-step-key='" + step + "']");
-            this.history.push(currentStep.dataset.stepKey);
         }
         if (nextStep.classList.contains("future")) {
             currentStep.classList.add("past");
@@ -135,7 +158,8 @@ class MemberForm {
         }
     }
 
-    async s_type_init(type) {
+    async s_type_init(type, step) {
+        this.addHistory(step);
         let response = await fetch("/s/update", {
             method: "POST",
             headers: {
@@ -143,7 +167,25 @@ class MemberForm {
             },
             body: JSON.stringify({
                 "uuid": window.__lmf._uuid,
+                "history": JSON.stringify(this.history),
                 "type": type
+            })
+        });
+        let data = await response.json();
+        return data;
+    }
+
+    async s_type_add(type, step) {
+        this.addHistory(step);
+        let response = await fetch("/s/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "uuid": window.__lmf._uuid,
+                "history": JSON.stringify(this.history),
+                "type": this.supporter.type + "," + type
             })
         });
         let data = await response.json();
