@@ -18,7 +18,7 @@
             $supporter->history = [];
         }
     @endphp
-    <div class="los-memberform-base" data-supporter-uuid={{$supporter->uuid}} data-supporter-history={{$supporter->history ? json_encode($supporter->history) : ""}} data-csrf-token="{{ csrf_token() }}">
+    <div class="los-memberform-base" data-supporter-uuid="{{$supporter->uuid}}" data-supporter-history="{{$supporter->history ? json_encode($supporter->history) : ""}}" data-csrf-token="{{ csrf_token() }}">
         @foreach ($config->steps as $key => $step)
         @php
             if (in_array($key, $supporter->history)) {

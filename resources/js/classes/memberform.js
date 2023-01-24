@@ -33,12 +33,12 @@ class MemberForm {
         let r = await fetch("/s/update", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'X-CSRF-TOKEN': this._token
             },
             body: JSON.stringify({
                 "uuid": window.__lmf._uuid,
                 "history": JSON.stringify(this.history),
-                "_token": this._token
             })
         });
         r = await r.json();
@@ -51,12 +51,12 @@ class MemberForm {
         let r = await fetch("/s/update", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                'X-CSRF-TOKEN': this._token
             },
             body: JSON.stringify({
                 "uuid": window.__lmf._uuid,
                 "history": JSON.stringify(this.history),
-                "_token": this._token
             })
         });
         r = await r.json();
@@ -131,6 +131,9 @@ class MemberForm {
         formData.append("history", JSON.stringify(this.history));
         let response = await fetch(form.action, {
             method: "POST",
+            headers: {
+                'X-CSRF-TOKEN': this._token
+            },
             body: formData
         });
         response = await response.json();
@@ -202,13 +205,13 @@ class MemberForm {
         let response = await fetch("/s/update", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": this._token
             },
             body: JSON.stringify({
                 "uuid": window.__lmf._uuid,
                 "history": JSON.stringify(this.history),
-                "type": type,
-                "_token": window.__lmf._token
+                "type": type
             })
         });
         let data = await response.json();
@@ -220,13 +223,13 @@ class MemberForm {
         let response = await fetch("/s/update", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": this._token
             },
             body: JSON.stringify({
                 "uuid": window.__lmf._uuid,
                 "history": JSON.stringify(this.history),
-                "type": this.supporter.type + "," + type,
-                "_token": window.__lmf._token
+                "type": this.supporter.type + "," + type
             })
         });
         let data = await response.json();
@@ -237,11 +240,11 @@ class MemberForm {
         let response = await fetch("/s/destroy", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": this._token
             },
             body: JSON.stringify({
-                "uuid": window.__lmf._uuid,
-                "_token": window.__lmf._token
+                "uuid": window.__lmf._uuid
             })
         });
         let data = await response.json();
