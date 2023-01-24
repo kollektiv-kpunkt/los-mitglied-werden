@@ -22,14 +22,18 @@ Route::get('/', function () {
         return Str::startsWith($key, "supporter_");
     }, ARRAY_FILTER_USE_KEY))[0] ?? Str::uuid()->toString();
     $uuid = str_replace("supporter_", "", $existingCookie);
-    $supporter = new Supporter([
-        'uuid' => $uuid,
-    ]);
-    $supporter->prepare();
+    if (Supporter::where('uuid', $uuid)->exists()) {
+        $supporter = Supporter::where('uuid', $uuid)->first();
+    } else {
+        $supporter = new Supporter([
+            'uuid' => $uuid,
+            "data" => []
+        ]);
+        $supporter->save();
+    }
     cookie()->queue(cookie("supporter_" . $supporter->uuid, json_encode(array()), 15));
-    return redirect()->route('supporter.show', ['uuid' => $supporter->uuid]);
+    return view("supporter.show", ["supporter" => $supporter]);
 })->name('home');
 
 Route::post("s/update", [SupporterController::class, 'update'])->name("supporter.update");
-
-Route::get("s/{uuid}", [SupporterController::class, 'show'])->name("supporter.show");
+Route::post("s/destroy", [SupporterController::class, 'destroy'])->name("supporter.destroy");

@@ -22,14 +22,14 @@
               "markup": "button",
               "type": "los-memberform",
               "class": "los-button-next text-xl",
-              "action": "func:s_type_init(member, welcome)|goto:name"
+              "action": "func:s_type_init(member)|goto:name"
             },
             {
               "label": "button.activist",
               "markup": "button",
               "type": "los-memberform",
               "class": "los-button-next text-xl los-button-neg",
-              "action": "func:s_type_init(activist, welcome)|goto:name"
+              "action": "func:s_type_init(activist)|goto:name"
             }
           ]
         }
@@ -65,7 +65,6 @@
     "salutation": {
       "type": "radios",
       "title": "salutation.title",
-      "name": "salutation",
       "choices": [
         {
           "label": "salutation.mrs.label",
@@ -94,7 +93,6 @@
         {
           "name": "email",
           "type": "email",
-          "label": "email.label",
           "size": "-w-full",
           "required": true
         }
@@ -114,7 +112,6 @@
         {
           "name": "phone",
           "type": "tel",
-          "label": "phone.label",
           "size": "-w-full",
           "placeholder": "placeholder.optional"
         }
@@ -241,15 +238,12 @@
         {
           "name": "birthyear",
           "type": "number",
-          "label": "birthyear.label",
-          "required": true,
+          "placeholder": "placeholder.optional",
           "size": "-w-full"
         }
       ],
       "validation": {
-        "birthyear": {
-          "presence": true
-        }
+        "birthyear": {}
       },
       "next": "notes"
     },
@@ -259,8 +253,8 @@
       "fields": [
         {
           "name": "notes",
+          "placeholder": "placeholder.optional",
           "type": "text",
-          "label": "notes.label",
           "size": "-w-full"
         }
       ],
@@ -291,7 +285,7 @@
               "markup": "button",
               "type": "los-memberform",
               "class": "los-button-next los-button-neg text-xl",
-              "action": "func:s_type_add(activist, cta)|goto:supporttype"
+              "action": "func:s_type_add(activist)|goto:supporttype"
             },
             {
               "label": "button.rather-not",
@@ -308,60 +302,60 @@
       "type": "radios",
       "title": "supporttype.title",
       "direction": "vertical",
-      "name": "supporttype",
+      "multiple": true,
       "required": true,
       "choices": [
         {
-          "label": "supporttype.homepage.label",
+          "label": "homepage.label",
           "value": "homepage"
         },
         {
-          "label": "supporttype.events.label",
+          "label": "events.label",
           "value": "events"
         },
         {
-          "label": "supporttype.demos.label",
+          "label": "demos.label",
           "value": "demos"
         },
         {
-          "label": "supporttype.lectorate.label",
+          "label": "lectorate.label",
           "value": "lectorate"
         },
         {
-          "label": "supporttype.translation.label",
+          "label": "translation.label",
           "value": "translation"
         },
         {
-          "label": "supporttype.photography.label",
+          "label": "photography.label",
           "value": "photography"
         },
         {
-          "label": "supporttype.catering.label",
+          "label": "catering.label",
           "value": "catering"
         },
         {
-          "label": "supporttype.barkeeping.label",
+          "label": "barkeeping.label",
           "value": "barkeeping"
         },
         {
-          "label": "supporttype.socialmedia.label",
+          "label": "socialmedia.label",
           "value": "socialmedia"
         },
         {
-          "label": "supporttype.meetingpoints.label",
+          "label": "meetingpoints.label",
           "value": "meetingpoints"
         },
         {
-          "label": "supporttype.graphicdesign.label",
+          "label": "graphicdesign.label",
           "value": "graphicdesign"
         },
         {
-          "label": "supporttype.other.label",
+          "label": "other.label",
           "value": "other"
         }
       ],
       "validation": {
-        "supporttype": {
+        "supporttype[]": {
           "presence": true
         }
       },
@@ -371,42 +365,41 @@
       "type": "radios",
       "title": "locations.title",
       "direction": "horizontal",
-      "name": "locations",
+      "multiple": true,
       "choices": [
         {
-          "label": "locations.zuerich.label",
+          "label": "zuerich.label",
           "value": "zuerich"
         },
         {
-          "label": "locations.bern.label",
+          "label": "bern.label",
           "value": "bern"
         },
         {
-          "label": "locations.luzern.label",
+          "label": "luzern.label",
           "value": "luzern"
         },
         {
-          "label": "locations.basel.label",
+          "label": "basel.label",
           "value": "basel"
         },
         {
-          "label": "locations.winterthur.label",
+          "label": "winterthur.label",
           "value": "winterthur"
         },
         {
-          "label": "locations.stgallen.label",
+          "label": "stgallen.label",
           "value": "stgallen"
         }
       ],
       "validation": {
-        "locations": {
-          "presence": true
-        }
+        "locations[]": {}
       },
       "next": "thanks"
     },
     "thanks": {
       "type": "contentblocks",
+      "finished": true,
       "blocks": [
         {
           "type": "title",

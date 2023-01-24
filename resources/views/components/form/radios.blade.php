@@ -5,7 +5,11 @@
             $str = "a";
         @endphp
         @foreach ($step->choices as $choice)
-            @if (isset($supporter->$key) && $supporter->$key == $choice->value)
+            @if (isset($supporter->data[$key]) && $supporter->data[$key] == $choice->value)
+            @php
+                $checked = true;
+            @endphp
+            @elseif (isset($supporter->data[$key]) && gettype($supporter->data[$key]) == "array" && in_array($choice->value, $supporter->data[$key]))
             @php
                 $checked = true;
             @endphp
@@ -23,7 +27,7 @@
                     $required = false
                 @endphp
             @endif
-            <x-form.choice :choice="$choice" :name="$key" :key="$key . '_' . $choice->value" :letter="$str" :checked="$checked" :required="$required" />
+            <x-form.choice :choice="$choice" :name="$key" :key="$key . '_' . $choice->value" :letter="$str" :checked="$checked" :multiple="$step->multiple ?? false" />
             @php
                 $str++;
             @endphp

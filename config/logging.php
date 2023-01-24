@@ -57,6 +57,13 @@ return [
             'ignore_exceptions' => false,
         ],
 
+        'supporters' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/supporters.log'),
+            'level' => 'debug',
+            'days' => 100
+        ],
+
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),

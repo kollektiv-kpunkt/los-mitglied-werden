@@ -29,20 +29,37 @@ class SupporterController extends Controller
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
-                'message' => __("error.uuid.invalid")
+                'message' => __("error.uuid.invalid"),
+                "r" => $req
             ]);
         }
-        $supporter->readJSON();
-        foreach ($req as $key => $value) {
-            $supporter->$key = $value;
-        }
-        $supporter->writeJSON();
+        $supporter->data = array_merge($supporter->data, $req);
+        $supporter->save();
         $supporter->determineNext($req["next"] ?? null, $supporter);
         return response()->json([
             'status' => 'success',
             'message' => __("success.supporter.update"),
+            "r" => $req,
             'supporter' => $supporter,
             "next" => $supporter->next
+        ]);
+    }
+
+    public function destroy() {
+        $req = request()->all();
+        try {
+            $supporter = Supporter::where('uuid', $req['uuid'])->firstOrFail();
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => __("error.uuid.invalid")
+            ]);
+        }
+        cookie()->queue(cookie()->forget("supporter_" . $supporter->uuid));
+        return response()->json([
+            'status' => 'success',
+            'message' => __("success.supporter.destroy"),
+            'supporter' => $supporter
         ]);
     }
 }

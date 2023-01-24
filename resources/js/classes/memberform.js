@@ -17,6 +17,7 @@ class MemberForm {
             if (document.querySelector(".los-memberform-step-container.active form")) {
                 this.validateForm(document.querySelector(".los-memberform-step-container.active form"));
             }
+            this.addHistory(document.querySelector(".los-memberform-step-container.active").dataset.stepKey);
         });
 
         this.s_type_init = this.s_type_init.bind(this);
@@ -24,9 +25,38 @@ class MemberForm {
         this.addHistory = this.addHistory.bind(this);
     }
 
-    addHistory(h) {
+    async addHistory(h) {
         this._h.add(h);
         this.history = Array.from(this._h);
+        let r = await fetch("/s/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "uuid": window.__lmf._uuid,
+                "history": JSON.stringify(this.history),
+            })
+        });
+        r = await r.json();
+        console.log(r);
+    }
+
+    async removeHistory(h) {
+        this._h.delete(h);
+        this.history = Array.from(this._h);
+        let r = await fetch("/s/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "uuid": window.__lmf._uuid,
+                "history": JSON.stringify(this.history),
+            })
+        });
+        r = await r.json();
+        console.log(r);
     }
 
     initButtons() {
@@ -94,7 +124,6 @@ class MemberForm {
         let formData = new FormData(form);
         formData.append("uuid", window.__lmf._uuid);
         formData.append("next", form.querySelector("button[type='submit']").dataset.next);
-        this.addHistory(form.closest(".los-memberform-step-container").dataset.stepKey);
         formData.append("history", JSON.stringify(this.history));
         let response = await fetch(form.action, {
             method: "POST",
@@ -136,9 +165,11 @@ class MemberForm {
         let currentStep = document.querySelector(".los-memberform-step-container.active");
         let nextStep;
         if (step == "BACK") {
-            step = this.history.pop();
+            step = this.history[this.history.length - 2];
+            this.removeHistory(currentStep.dataset.stepKey);
             nextStep = document.querySelector(".los-memberform-step-container[data-step-key='" + step + "']");
         } else {
+            this.addHistory(step);
             nextStep = document.querySelector(".los-memberform-step-container[data-step-key='" + step + "']");
         }
         if (nextStep.classList.contains("future")) {
@@ -156,10 +187,13 @@ class MemberForm {
         if (nextStep.querySelector("form")) {
             this.validateForm(nextStep.querySelector("form"));
         }
+
+        if (nextStep.hasAttribute("data-form-finished")) {
+            this.destroySession();
+        }
     }
 
-    async s_type_init(type, step) {
-        this.addHistory(step);
+    async s_type_init(type) {
         let response = await fetch("/s/update", {
             method: "POST",
             headers: {
@@ -172,11 +206,11 @@ class MemberForm {
             })
         });
         let data = await response.json();
+        console.log(data);
         return data;
     }
 
-    async s_type_add(type, step) {
-        this.addHistory(step);
+    async s_type_add(type) {
         let response = await fetch("/s/update", {
             method: "POST",
             headers: {
@@ -186,6 +220,20 @@ class MemberForm {
                 "uuid": window.__lmf._uuid,
                 "history": JSON.stringify(this.history),
                 "type": this.supporter.type + "," + type
+            })
+        });
+        let data = await response.json();
+        return data;
+    }
+
+    async destroySession() {
+        let response = await fetch("/s/destroy", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "uuid": window.__lmf._uuid
             })
         });
         let data = await response.json();
