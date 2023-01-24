@@ -21,6 +21,10 @@ class VerifyCsrfToken extends Middleware
             $this->except = [
                 "*"
             ];
+        } else {
+            $this->except = [
+                "s/*"
+            ];
         }
         return parent::handle($request, $next);
     }
