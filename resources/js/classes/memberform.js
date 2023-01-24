@@ -14,6 +14,7 @@ class MemberForm {
             this.initForms();
             this.initChoices();
             this.initHistory();
+            this.initKeydown();
             if (document.querySelector(".los-memberform-step-container.active form")) {
                 this.validateForm(document.querySelector(".los-memberform-step-container.active form"));
             }
@@ -184,6 +185,7 @@ class MemberForm {
             nextStep.classList.add("active");
         }
 
+
         if (nextStep.querySelector("form")) {
             this.validateForm(nextStep.querySelector("form"));
         }
@@ -238,6 +240,19 @@ class MemberForm {
         });
         let data = await response.json();
         return data;
+    }
+
+    initKeydown() {
+        window.addEventListener("keydown", (e) => {
+            if (document.querySelector(".los-memberform-step-container.active form [data-letter='" + e.key + "']")) {
+                document.querySelector(".los-memberform-step-container.active form [data-letter='" + e.key + "']").click();
+            }
+
+            // if (document.querySelector(".los-memberform-step-container.active form") && e.key == "Enter") {
+            //     console.log("enter");
+            //     document.querySelector(".los-memberform-step-container.active form .los-input-submit button").click();
+            // }
+        });
     }
 }
 

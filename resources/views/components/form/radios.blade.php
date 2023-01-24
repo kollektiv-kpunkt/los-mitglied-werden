@@ -32,6 +32,7 @@
                 $str++;
             @endphp
         @endforeach
+        @csrf
         <x-form.submit :step="$step" />
     </form>
 </div>

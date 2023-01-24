@@ -4,6 +4,7 @@
         @foreach ($step->fields as $field)
         <x-form.input :field="$field" :value="$supporter->data[$field->name] ?? ''" />
         @endforeach
+        @csrf
         <x-form.submit :step="$step"/>
     </form>
 </div>
