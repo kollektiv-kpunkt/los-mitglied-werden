@@ -6,6 +6,7 @@ class MemberForm {
             window.__lmf = this;
         }
         this._uuid = document.querySelector(".los-memberform-base").dataset.supporterUuid;
+        this._token = document.querySelector(".los-memberform-base").dataset.csrfToken;
         this._h = new Set();
         this.history = Array.from(this._h);
         this.supporter = {};
@@ -37,6 +38,7 @@ class MemberForm {
             body: JSON.stringify({
                 "uuid": window.__lmf._uuid,
                 "history": JSON.stringify(this.history),
+                "_token": this._token
             })
         });
         r = await r.json();
@@ -54,6 +56,7 @@ class MemberForm {
             body: JSON.stringify({
                 "uuid": window.__lmf._uuid,
                 "history": JSON.stringify(this.history),
+                "_token": this._token
             })
         });
         r = await r.json();
@@ -204,7 +207,8 @@ class MemberForm {
             body: JSON.stringify({
                 "uuid": window.__lmf._uuid,
                 "history": JSON.stringify(this.history),
-                "type": type
+                "type": type,
+                "_token": window.__lmf._token
             })
         });
         let data = await response.json();
@@ -221,7 +225,8 @@ class MemberForm {
             body: JSON.stringify({
                 "uuid": window.__lmf._uuid,
                 "history": JSON.stringify(this.history),
-                "type": this.supporter.type + "," + type
+                "type": this.supporter.type + "," + type,
+                "_token": window.__lmf._token
             })
         });
         let data = await response.json();
@@ -235,7 +240,8 @@ class MemberForm {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                "uuid": window.__lmf._uuid
+                "uuid": window.__lmf._uuid,
+                "_token": window.__lmf._token
             })
         });
         let data = await response.json();
