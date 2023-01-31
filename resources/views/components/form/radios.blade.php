@@ -3,6 +3,7 @@
     <form action="/s/update" method="POST" class="flex flex-wrap gap-4 los-memberform-partial los-form-radio los-radio-{{$step->direction ?? "horizontal"}}" data-validation={{(isset($step->validation)) ? json_encode($step->validation) : ""}}>
         @php
             $str = "a";
+            $key = $step->name ?? $key;
         @endphp
         @foreach ($step->choices as $choice)
             @if (isset($supporter->data[$key]) && $supporter->data[$key] == $choice->value)
@@ -27,7 +28,7 @@
                     $required = false
                 @endphp
             @endif
-            <x-form.choice :choice="$choice" :name="$key" :key="$key . '_' . $choice->value" :letter="$str" :checked="$checked" :multiple="$step->multiple ?? false" />
+            <x-form.choice :choice="$choice" :name="$step->name ?? $key" :key="$key . '_' . $choice->value" :letter="$str" :checked="$checked" :multiple="$step->multiple ?? false" />
             @php
                 $str++;
             @endphp
