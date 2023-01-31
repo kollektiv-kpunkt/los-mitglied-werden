@@ -29,7 +29,7 @@
               "markup": "button",
               "type": "los-memberform",
               "class": "los-button-next text-xl los-button-neg",
-              "action": "func:s_type_init(activist)|goto:name"
+              "action": "func:s_type_init(volunteer)|goto:name"
             }
           ]
         }
@@ -57,30 +57,6 @@
           "presence": true
         },
         "lname": {
-          "presence": true
-        }
-      },
-      "next": "salutation"
-    },
-    "salutation": {
-      "type": "radios",
-      "title": "salutation.title",
-      "choices": [
-        {
-          "label": "salutation.mrs.label",
-          "value": "mrs"
-        },
-        {
-          "label": "salutation.mr.label",
-          "value": "mr"
-        },
-        {
-          "label": "salutation.neutral.label",
-          "value": "neutral"
-        }
-      ],
-      "validation": {
-        "salutation": {
           "presence": true
         }
       },
@@ -122,7 +98,7 @@
         }
       },
       "next": {
-        "type_activist": "supporttype",
+        "type_volunteer": "volunteertype",
         "ELSE": "membertype"
       }
     },
@@ -135,33 +111,98 @@
       "choices": [
         {
           "label": "membertype.regular.label",
-          "value": "regular"
+          "value": "LOS regular"
         },
         {
           "label": "membertype.reduced.label",
-          "value": "reduced"
-        },
-        {
-          "label": "membertype.u20.label",
-          "value": "u20"
+          "value": "LOS reduced"
         },
         {
           "label": "membertype.couple.label",
-          "value": "couple"
-        },
-        {
-          "label": "membertype.group.label",
-          "value": "group"
+          "value": "LOS couples"
         },
         {
           "label": "membertype.supporter.label",
-          "value": "supporter"
+          "value": "LOS supporter"
+        },
+        {
+          "label": "membertype.organisation.label",
+          "value": "LOS organisation"
         }
       ],
       "validation": {
         "membertype": {
           "presence": true
         }
+      },
+      "next": {
+        "membertype_LOS regular": "comboRegular",
+        "membertype_LOS reduced": "comboReduced",
+        "membertype_LOS organisation": "orgaAddress",
+        "ELSE": "address"
+      }
+    },
+    "comboRegular": {
+      "type": "radios",
+      "title": "comboRegular.title",
+      "direction": "horizontal",
+      "name": "membertype",
+      "choices": [
+        {
+          "label": "comboRegular.milchjugendU22.label",
+          "value": "Combo LOS/Milchjugend u22"
+        },
+        {
+          "label": "comboRegular.milchjugendRegular.label",
+          "value": "Combo LOS/Milchjugend regular"
+        },
+        {
+          "label": "comboRegular.hazRegular.label",
+          "value": "Combo LOS/HAZ reduced"
+        },
+        {
+          "label": "comboRegular.habsRegular.label",
+          "value": "Combo LOS/HABS queer reduced"
+        },
+        {
+          "label": "comboRegular.habRegular.label",
+          "value": "Combo LOS/HAB queer regular"
+        }
+      ],
+      "validation": {
+        "membertype": {}
+      },
+      "next": "address"
+    },
+    "comboReduced": {
+      "type": "radios",
+      "title": "comboReduced.title",
+      "direction": "horizontal",
+      "name": "membertype",
+      "choices": [
+        {
+          "label": "comboReduced.milchjugendU22.label",
+          "value": "111111111"
+        },
+        {
+          "label": "comboReduced.milchjugendReduced.label",
+          "value": "Combo LOS/Milchjugend reduced"
+        },
+        {
+          "label": "comboReduced.hazReduced.label",
+          "value": "Combo LOS/HAZ reduced"
+        },
+        {
+          "label": "comboReduced.habsReduced.label",
+          "value": "Combo LOS/HABS queer reduced"
+        },
+        {
+          "label": "comboReduced.habReduced.label",
+          "value": "Combo LOS/HAB queer reduced"
+        }
+      ],
+      "validation": {
+        "membertype": {}
       },
       "next": "address"
     },
@@ -202,6 +243,53 @@
       },
       "next": "lang"
     },
+    "orgaAddress": {
+      "type": "inputs",
+      "title": "orgaAddress.title",
+      "fields": [
+        {
+          "name": "organame",
+          "type": "text",
+          "label": "organame.label",
+          "required": true,
+          "size": "-w-full"
+        },
+        {
+          "name": "street",
+          "type": "text",
+          "label": "street.label",
+          "required": true,
+          "size": "-w-full"
+        },
+        {
+          "name": "zip",
+          "type": "text",
+          "label": "zip.label",
+          "required": true
+        },
+        {
+          "name": "city",
+          "type": "text",
+          "label": "city.label",
+          "required": true
+        }
+      ],
+      "validation": {
+        "street": {
+          "presence": true
+        },
+        "zip": {
+          "presence": true
+        },
+        "city": {
+          "presence": true
+        },
+        "organame": {
+          "presence": true
+        }
+      },
+      "next": "lang"
+    },
     "lang": {
       "type": "radios",
       "title": "lang.title",
@@ -209,19 +297,11 @@
       "choices": [
         {
           "label": "lang.de.label",
-          "value": "de"
+          "value": "German"
         },
         {
           "label": "lang.fr.label",
-          "value": "fr"
-        },
-        {
-          "label": "lang.it.label",
-          "value": "it"
-        },
-        {
-          "label": "lang.en.label",
-          "value": "en"
+          "value": "French"
         }
       ],
       "validation": {
@@ -229,21 +309,75 @@
           "presence": true
         }
       },
-      "next": "birthyear"
+      "next": "birthday"
     },
-    "birthyear": {
+    "birthday": {
       "type": "inputs",
-      "title": "birthyear.title",
+      "title": "birthday.title",
       "fields": [
         {
-          "name": "birthyear",
-          "type": "number",
-          "placeholder": "placeholder.optional",
+          "name": "birthday",
+          "type": "text",
+          "placeholder": "dd.mm.yyyy",
           "size": "-w-full"
         }
       ],
       "validation": {
-        "birthyear": {}
+        "birthday": {
+          "format": {
+            "pattern": "^(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(19|20)\\d\\d$"
+          }
+        }
+      },
+      "next": {
+        "membertype_LOS couples": "contact2",
+        "ELSE": "notes"
+      }
+    },
+    "contact2": {
+      "type": "inputs",
+      "title": "contact2.title",
+      "fields": [
+        {
+          "name": "fname2",
+          "type": "text",
+          "label": "fname2.label",
+          "required": true
+        },
+        {
+          "name": "lname2",
+          "type": "text",
+          "label": "lname2.label",
+          "required": true
+        },
+        {
+          "name": "email2",
+          "type": "email",
+          "label": "email2.label",
+          "required": true,
+          "size": "-w-full"
+        },
+        {
+          "name": "phone2",
+          "type": "text",
+          "label": "phone2.label",
+          "size": "-w-full"
+        }
+      ],
+      "validation": {
+        "fname2": {
+          "presence": true
+        },
+        "lname2": {
+          "presence": true
+        },
+        "email2": {
+          "presence": true,
+          "email": true
+        },
+        "phone2": {
+          "format": "^((0041|0)|\\B\\+41)(\\s?\\(0\\))?(\\s)?[1-9]{2}(\\s)?[0-9]{3}(\\s)?[0-9]{2}(\\s)?[0-9]{2}$"
+        }
       },
       "next": "notes"
     },
@@ -285,7 +419,7 @@
               "markup": "button",
               "type": "los-memberform",
               "class": "los-button-next los-button-neg text-xl",
-              "action": "func:s_type_add(activist)|goto:supporttype"
+              "action": "goto:volunteertype"
             },
             {
               "label": "button.rather-not",
@@ -298,9 +432,9 @@
         }
       ]
     },
-    "supporttype": {
+    "volunteertype": {
       "type": "radios",
-      "title": "supporttype.title",
+      "title": "volunteertype.title",
       "direction": "vertical",
       "multiple": true,
       "required": true,
@@ -355,7 +489,7 @@
         }
       ],
       "validation": {
-        "supporttype[]": {
+        "volunteertype[]": {
           "presence": true
         }
       },
@@ -372,24 +506,44 @@
           "value": "zuerich"
         },
         {
-          "label": "bern.label",
-          "value": "bern"
+          "label": "Zurich.label",
+          "value": "Zurich"
         },
         {
-          "label": "luzern.label",
-          "value": "luzern"
+          "label": "Winterthur.label",
+          "value": "Winterthur"
         },
         {
-          "label": "basel.label",
-          "value": "basel"
+          "label": "StGallen.label",
+          "value": "StGallen"
         },
         {
-          "label": "winterthur.label",
-          "value": "winterthur"
+          "label": "Neuchatel.label",
+          "value": "Neuchatel"
         },
         {
-          "label": "stgallen.label",
-          "value": "stgallen"
+          "label": "Lucerne.label",
+          "value": "Lucerne"
+        },
+        {
+          "label": "Locarno.label",
+          "value": "Locarno"
+        },
+        {
+          "label": "Lausanne.label",
+          "value": "Lausanne"
+        },
+        {
+          "label": "Geneva.label",
+          "value": "Geneva"
+        },
+        {
+          "label": "Berne.label",
+          "value": "Berne"
+        },
+        {
+          "label": "Basel.label",
+          "value": "Basel"
         }
       ],
       "validation": {
