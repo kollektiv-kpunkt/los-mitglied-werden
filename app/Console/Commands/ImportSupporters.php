@@ -34,8 +34,8 @@ class ImportSupporters extends Command
         $supporters->each(function ($supporter) {
             $response = Http::withBasicAuth(env("WEBHOOK_USER"), env("WEBHOOK_PW"))->post(env("WEBHOOK_URL"), $supporter->data);
             if ($response->ok()) {
-                // $supporter->migrated = true;
-                // $supporter->save();
+                $supporter->migrated = true;
+                $supporter->save();
                 Log::channel('supporters')->info("Migrated: " . $supporter->id);
                 Log::channel('supporters')->info($response->body());
             } else {
