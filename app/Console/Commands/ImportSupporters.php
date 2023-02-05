@@ -21,7 +21,7 @@ class ImportSupporters extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Migrate Supporters from local database to Salesforce and Mailchimp through one webhook handled by N8N (https://n8n.io/).';
 
     /**
      * Execute the console command.
@@ -31,7 +31,17 @@ class ImportSupporters extends Command
     public function handle()
     {
         $supporters = Supporter::where('migrated', false)->where('updated_at', '<', \Carbon\Carbon::now()->subMinutes(15))->get();
+        if ($supporters->count() == 0) {
+            Log::channel('supporters')->info("No supporters to migrate");
+            return Command::SUCCESS;
+        }
         $supporters->each(function ($supporter) {
+            if (!isset($supporter->data["email"]) || $supporter->data["email"] == "") {
+                $supporter->migrated = true;
+                $supporter->save();
+                Log::channel('supporters')->info("No email for supporter: " . $supporter->id);
+                return;
+            }
             $response = Http::withBasicAuth(env("WEBHOOK_USER"), env("WEBHOOK_PW"))->post(env("WEBHOOK_URL"), $supporter->data);
             if ($response->ok()) {
                 $supporter->migrated = true;

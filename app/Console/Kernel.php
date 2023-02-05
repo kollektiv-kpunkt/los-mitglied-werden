@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('supporters:import')->everyFifteenMinutes();
+        $schedule->command('supporters:import')->everyFiveMinutes();
     }
 
     /**

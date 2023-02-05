@@ -25,9 +25,17 @@ Route::get('/', function () {
     if (Supporter::where('uuid', $uuid)->exists()) {
         $supporter = Supporter::where('uuid', $uuid)->first();
     } else {
+        $langs = [
+            "de" => "German",
+            "fr" => "French",
+            "it" => "Italian",
+            "en" => "English"
+        ];
         $supporter = new Supporter([
             'uuid' => $uuid,
-            "data" => []
+            "data" => [
+                "lang" => $langs[request()->getPreferredLanguage(array_keys($langs))],
+            ],
         ]);
         $supporter->save();
     }
