@@ -15,6 +15,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "twemoji": "^14.0.2",
         "validate.js": "^0.13.1"
     }
 }

@@ -1,5 +1,5 @@
 window.addEventListener("keydown", (e) => {
     if (e.key == "Enter" && e.ctrlKey) {
-        console.log(window.__lmf);
+        console.table(window.__lmf.supporter.data);
     }
 });

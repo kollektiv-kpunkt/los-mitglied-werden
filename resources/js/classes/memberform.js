@@ -11,6 +11,7 @@ class MemberForm {
         this.history = Array.from(this._h);
         this.supporter = {};
         document.addEventListener('DOMContentLoaded', () => {
+            this.initAppLayout();
             this.initButtons();
             this.initForms();
             this.initChoices();
@@ -24,6 +25,7 @@ class MemberForm {
 
         this.s_type_init = this.s_type_init.bind(this);
         this.s_type_add = this.s_type_add.bind(this);
+        this.s_update_field = this.s_update_field.bind(this);
         this.addHistory = this.addHistory.bind(this);
     }
 
@@ -61,6 +63,19 @@ class MemberForm {
         });
         r = await r.json();
         console.log(r);
+    }
+
+    initAppLayout() {
+        let appLogo = document.querySelector(".los-app-logo");
+        appLogo.addEventListener("click", async (e) => {
+            let session = await this.destroySession();
+            if (session.status == "success") {
+                window.location.reload();
+            } else {
+                alert("Something went wrong. Please try again.");
+                console.log(session);
+            }
+        });
     }
 
     initButtons() {
@@ -236,6 +251,25 @@ class MemberForm {
         return data;
     }
 
+    async s_update_field(field, value) {
+        this.supporter[field] = value;
+        let updateBody = {
+            "uuid": window.__lmf._uuid,
+            "history": JSON.stringify(this.history)
+        };
+        updateBody[field] = value;
+        let response = await fetch("/s/update", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": this._token
+            },
+            body: JSON.stringify(updateBody)
+        });
+        let data = await response.json();
+        return data;
+    }
+
     async destroySession() {
         let response = await fetch("/s/destroy", {
             method: "POST",
@@ -256,11 +290,6 @@ class MemberForm {
             if (document.querySelector(".los-memberform-step-container.active form [data-letter='" + e.key + "']")) {
                 document.querySelector(".los-memberform-step-container.active form [data-letter='" + e.key + "']").click();
             }
-
-            // if (document.querySelector(".los-memberform-step-container.active form") && e.key == "Enter") {
-            //     console.log("enter");
-            //     document.querySelector(".los-memberform-step-container.active form .los-input-submit button").click();
-            // }
         });
     }
 }

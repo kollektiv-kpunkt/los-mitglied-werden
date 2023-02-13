@@ -122,12 +122,12 @@
           "value": "LOS couples"
         },
         {
-          "label": "membertype.supporter.label",
-          "value": "LOS supporter"
-        },
-        {
           "label": "membertype.organisation.label",
           "value": "LOS organisation"
+        },
+        {
+          "label": "membertype.supporter.label",
+          "value": "LOS supporter"
         }
       ],
       "validation": {
@@ -136,37 +136,103 @@
         }
       },
       "next": {
-        "membertype_LOS regular": "comboRegular",
-        "membertype_LOS reduced": "comboReduced",
+        "membertype_LOS regular": "comboRegular_optin",
+        "membertype_LOS reduced": "comboReduced_optin",
         "membertype_LOS organisation": "orgaAddress",
         "ELSE": "address"
       }
     },
+    "comboRegular_optin": {
+      "type": "contentblocks",
+      "blocks": [
+        {
+          "type": "title",
+          "size": "h1",
+          "content": "combo.optin.title",
+          "class": "text-white text-6xl font-bold mb-6"
+        },
+        {
+          "type": "text",
+          "content": "combo.optin.text",
+          "class": "text-white text-2xl mb-6"
+        },
+        {
+          "type": "buttons",
+          "buttons": [
+            {
+              "label": "button.yes-please",
+              "markup": "button",
+              "type": "los-memberform",
+              "class": "los-button-next los-button-neg text-xl",
+              "action": "goto:comboRegular"
+            },
+            {
+              "label": "button.rather-not",
+              "markup": "button",
+              "type": "los-memberform",
+              "class": "los-button-next text-xl",
+              "action": "func:s_update_field(membertype, LOS regular)|goto:address"
+            }
+          ]
+        }
+      ]
+    },
+    "comboReduced_optin": {
+      "type": "contentblocks",
+      "blocks": [
+        {
+          "type": "title",
+          "size": "h1",
+          "content": "combo.optin.title",
+          "class": "text-white text-6xl font-bold mb-6"
+        },
+        {
+          "type": "text",
+          "content": "combo.optin.text",
+          "class": "text-white text-2xl mb-6"
+        },
+        {
+          "type": "buttons",
+          "buttons": [
+            {
+              "label": "button.yes-please",
+              "markup": "button",
+              "type": "los-memberform",
+              "class": "los-button-next los-button-neg text-xl",
+              "action": "goto:comboReduced"
+            },
+            {
+              "label": "button.rather-not",
+              "markup": "button",
+              "type": "los-memberform",
+              "class": "los-button-next text-xl",
+              "action": "goto:address"
+            }
+          ]
+        }
+      ]
+    },
     "comboRegular": {
       "type": "radios",
-      "title": "comboRegular.title",
+      "title": "combo.title",
       "direction": "horizontal",
       "name": "membertype",
       "choices": [
         {
-          "label": "comboRegular.milchjugendU22.label",
+          "label": "combo.milchjugendU22.label",
           "value": "Combo LOS/Milchjugend u22"
         },
         {
-          "label": "comboRegular.milchjugendRegular.label",
+          "label": "comboRegular.milchjugend.label",
           "value": "Combo LOS/Milchjugend regular"
         },
         {
-          "label": "comboRegular.hazRegular.label",
-          "value": "Combo LOS/HAZ reduced"
+          "label": "comboRegular.haz.label",
+          "value": "Combo LOS/HAZ regular"
         },
         {
-          "label": "comboRegular.habsRegular.label",
-          "value": "Combo LOS/HABS queer reduced"
-        },
-        {
-          "label": "comboRegular.habRegular.label",
-          "value": "Combo LOS/HAB queer regular"
+          "label": "comboRegular.habs.label",
+          "value": "Combo LOS/HABS queer regular"
         }
       ],
       "validation": {
@@ -176,29 +242,25 @@
     },
     "comboReduced": {
       "type": "radios",
-      "title": "comboReduced.title",
+      "title": "combo.title",
       "direction": "horizontal",
       "name": "membertype",
       "choices": [
         {
-          "label": "comboReduced.milchjugendU22.label",
-          "value": "111111111"
+          "label": "combo.milchjugendU22.label",
+          "value": "Combo LOS/Milchjugend u22"
         },
         {
-          "label": "comboReduced.milchjugendReduced.label",
+          "label": "comboReduced.milchjugend.label",
           "value": "Combo LOS/Milchjugend reduced"
         },
         {
-          "label": "comboReduced.hazReduced.label",
+          "label": "comboReduced.haz.label",
           "value": "Combo LOS/HAZ reduced"
         },
         {
-          "label": "comboReduced.habsReduced.label",
+          "label": "comboReduced.habs.label",
           "value": "Combo LOS/HABS queer reduced"
-        },
-        {
-          "label": "comboReduced.habReduced.label",
-          "value": "Combo LOS/HAB queer reduced"
         }
       ],
       "validation": {
@@ -309,24 +371,43 @@
           "presence": true
         }
       },
-      "next": "birthday"
+      "next": {
+        "membertype_Combo LOS/Milchjugend u22": "birthyear_required",
+        "ELSE": "birthyear"
+      }
     },
-    "birthday": {
+    "birthyear": {
       "type": "inputs",
-      "title": "birthday.title",
+      "title": "birthyear.title",
       "fields": [
         {
-          "name": "birthday",
-          "type": "text",
-          "placeholder": "dd.mm.yyyy",
+          "name": "birthyear",
+          "placeholder": "placeholder.optional",
+          "type": "number",
           "size": "-w-full"
         }
       ],
       "validation": {
-        "birthday": {
-          "format": {
-            "pattern": "^(0[1-9]|[12][0-9]|3[01])\\.(0[1-9]|1[012])\\.(19|20)\\d\\d$"
-          }
+        "birthyear": {}
+      },
+      "next": {
+        "membertype_LOS couples": "contact2",
+        "ELSE": "notes"
+      }
+    },
+    "birthyear_required": {
+      "type": "inputs",
+      "title": "birthyear.title",
+      "fields": [
+        {
+          "name": "birthyear",
+          "type": "number",
+          "size": "-w-full"
+        }
+      ],
+      "validation": {
+        "birthyear": {
+          "presence": true
         }
       },
       "next": {
@@ -440,52 +521,52 @@
       "required": true,
       "choices": [
         {
-          "label": "homepage.label",
-          "value": "homepage"
+          "label": "Events.label",
+          "value": "Events"
         },
         {
-          "label": "events.label",
-          "value": "events"
+          "label": "Demonstrations & Prides.label",
+          "value": "Demonstrations & Prides"
         },
         {
-          "label": "demos.label",
-          "value": "demos"
+          "label": "Website (Wordpress).label",
+          "value": "Website (Wordpress)"
         },
         {
-          "label": "lectorate.label",
-          "value": "lectorate"
+          "label": "Proof Reading.label",
+          "value": "Proof Reading"
         },
         {
-          "label": "translation.label",
-          "value": "translation"
+          "label": "Translations.label",
+          "value": "Translations"
         },
         {
-          "label": "photography.label",
-          "value": "photography"
+          "label": "Photography.label",
+          "value": "Photography"
         },
         {
-          "label": "catering.label",
-          "value": "catering"
+          "label": "Catering.label",
+          "value": "Catering"
         },
         {
-          "label": "barkeeping.label",
-          "value": "barkeeping"
+          "label": "Bar.label",
+          "value": "Bar"
         },
         {
-          "label": "socialmedia.label",
-          "value": "socialmedia"
+          "label": "Social Media.label",
+          "value": "Social Media"
         },
         {
-          "label": "meetingpoints.label",
-          "value": "meetingpoints"
+          "label": "Graphic Design.label",
+          "value": "Graphic Design"
         },
         {
-          "label": "graphicdesign.label",
-          "value": "graphicdesign"
+          "label": "Driving.label",
+          "value": "Driving"
         },
         {
-          "label": "other.label",
-          "value": "other"
+          "label": "Other.label",
+          "value": "Other"
         }
       ],
       "validation": {
@@ -502,48 +583,44 @@
       "multiple": true,
       "choices": [
         {
-          "label": "zuerich.label",
-          "value": "zuerich"
+          "label": "Basel.label",
+          "value": "Basel"
         },
         {
-          "label": "Zurich.label",
-          "value": "Zurich"
-        },
-        {
-          "label": "Winterthur.label",
-          "value": "Winterthur"
-        },
-        {
-          "label": "StGallen.label",
-          "value": "StGallen"
-        },
-        {
-          "label": "Neuchatel.label",
-          "value": "Neuchatel"
-        },
-        {
-          "label": "Lucerne.label",
-          "value": "Lucerne"
-        },
-        {
-          "label": "Locarno.label",
-          "value": "Locarno"
-        },
-        {
-          "label": "Lausanne.label",
-          "value": "Lausanne"
+          "label": "Bern.label",
+          "value": "Bern"
         },
         {
           "label": "Geneva.label",
           "value": "Geneva"
         },
         {
-          "label": "Berne.label",
-          "value": "Berne"
+          "label": "Lausanne.label",
+          "value": "Lausanne"
         },
         {
-          "label": "Basel.label",
-          "value": "Basel"
+          "label": "Locarno.label",
+          "value": "Locarno"
+        },
+        {
+          "label": "Lucerne.label",
+          "value": "Lucerne"
+        },
+        {
+          "label": "Neuchatel.label",
+          "value": "Neuchatel"
+        },
+        {
+          "label": "St. Gallen.label",
+          "value": "St. Gallen"
+        },
+        {
+          "label": "Winterthur.label",
+          "value": "Winterthur"
+        },
+        {
+          "label": "Zurich.label",
+          "value": "Zurich"
         }
       ],
       "validation": {

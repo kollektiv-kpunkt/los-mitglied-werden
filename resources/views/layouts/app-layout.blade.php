@@ -11,7 +11,7 @@
 
     <nav class="fixed top-0 left-0 w-full z-50">
         <div class="los-app-container pt-4">
-            <a href="/" class="flex items-center gap-x-6 w-fit">
+            <a href="/" class="flex items-center gap-x-6 w-fit los-app-logo">
                 <img src="{{asset('images/logo.svg')}}" alt="Logo">
                 {{-- <div class="text-white">
                     <p class="font-bold text-2xl">{{__("claim.title")}}</p>
