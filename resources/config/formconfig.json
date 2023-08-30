@@ -88,8 +88,7 @@
         {
           "name": "phone",
           "type": "tel",
-          "size": "-w-full",
-          "placeholder": "placeholder.optional"
+          "size": "-w-full"
         }
       ],
       "validation": {
@@ -233,6 +232,10 @@
         {
           "label": "comboRegular.habs.label",
           "value": "Combo LOS/HABS queer regular"
+        },
+        {
+          "label": "comboRegular.hab.label",
+          "value": "Combo LOS/HAB queer regular"
         }
       ],
       "validation": {
@@ -261,6 +264,10 @@
         {
           "label": "comboReduced.habs.label",
           "value": "Combo LOS/HABS queer reduced"
+        },
+        {
+          "label": "comboReduced.hab.label",
+          "value": "Combo LOS/HAB queer reduced"
         }
       ],
       "validation": {
