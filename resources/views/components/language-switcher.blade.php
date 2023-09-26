@@ -17,7 +17,7 @@
         <i class="icofont-globe"></i>
         <span class="text-sm uppercase">{{$currentLocale}}</span>
     </div>
-    @foreach ($locales as $locale)
+    @foreach ($otherLocales as $locale)
         <div class="los-lang-other fixed bottom-4 left-4 w-8 h-8 bg-white rounded-full text-accent flex gap-x-1 justify-center items-center px-2">
             <a href="/{{$locale}}">
                 <span class="text-sm uppercase">{{$locale}}</span>
