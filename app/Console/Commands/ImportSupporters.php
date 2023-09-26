@@ -30,7 +30,7 @@ class ImportSupporters extends Command
      */
     public function handle()
     {
-        $supporters = Supporter::where('migrated', false)->where('updated_at', '<', \Carbon\Carbon::now()->subMinutes(15))->get();
+        $supporters = Supporter::where('migrated', false)->where('updated_at', '<', \Carbon\Carbon::now()->subMinutes(30))->get();
         if ($supporters->count() == 0) {
             Log::channel('supporters')->info("No supporters to migrate");
             return Command::SUCCESS;
