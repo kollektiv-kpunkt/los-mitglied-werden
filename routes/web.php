@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
-use App\Http\Controllers\SupporterController;
 use App\Models\Supporter;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SupporterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,13 @@ use App\Models\Supporter;
 |
 */
 
-Route::get('/', function () {
+Route::get("/", function(){
+    $preferedLocale = request()->getPreferredLanguage(['de', 'fr', 'it', 'en']);
+    return redirect("/" . $preferedLocale);
+})->name("root");
+
+Route::get('/{lang}', function ($lang) {
+    App::setLocale($lang);
     $cookies = request()->cookie();
     $existingCookie = array_keys(array_filter($cookies, function($key) {
         return Str::startsWith($key, "supporter_");
@@ -34,7 +41,7 @@ Route::get('/', function () {
         $supporter = new Supporter([
             'uuid' => $uuid,
             "data" => [
-                "lang" => $langs[request()->getPreferredLanguage(array_keys($langs))],
+                "lang" => $langs[$lang],
             ],
         ]);
         $supporter->save();
