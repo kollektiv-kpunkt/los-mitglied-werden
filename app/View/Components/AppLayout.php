@@ -8,7 +8,6 @@ class AppLayout extends Component
 {
     public $title;
     public $description;
-    public $og;
     public $canonical;
     /**
      * Create a new component instance.
@@ -19,10 +18,9 @@ class AppLayout extends Component
      * @param $og
      * @param $canonical
      */
-    public function __construct($title, $description, $og, $canonical) {
+    public function __construct($title, $description, $canonical) {
         $this->title = $title;
         $this->description = $description;
-        $this->og = $og;
         $this->canonical = $canonical;
     }
 

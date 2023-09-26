@@ -4,7 +4,6 @@
 <x-app-layout
     :title="__('welcome.title')"
     :description="__('welcome.text')"
-    :og="asset('images/og-image.png')"
     :canonical="env('APP_URL')"
 >
     @php
