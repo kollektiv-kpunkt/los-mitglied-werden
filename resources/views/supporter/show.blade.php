@@ -2,8 +2,8 @@
     $config = json_decode(file_get_contents(resource_path('config/formconfig.json')));
 @endphp
 <x-app-layout
-    :title="__('Jetzt Mitglied werden!')"
-    :description="__('Jetzt Mitglied werden!')"
+    :title="__('welcome.title')"
+    :description="__('welcome.text')"
     :og="asset('images/og-image.png')"
     :canonical="env('APP_URL')"
 >

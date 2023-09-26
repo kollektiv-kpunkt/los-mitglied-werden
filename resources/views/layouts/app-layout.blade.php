@@ -13,10 +13,6 @@
         <div class="los-app-container pt-4">
             <a href="/" class="flex items-center gap-x-6 w-fit los-app-logo">
                 <img src="{{asset('images/logo.svg')}}" alt="Logo">
-                {{-- <div class="text-white">
-                    <p class="font-bold text-2xl">{{__("claim.title")}}</p>
-                    <p class="">{{__("claim.subtitle")}}</p>
-                </div> --}}
             </a>
         </div>
     </nav>
@@ -30,6 +26,7 @@
         <div class="los-app-bg-blind"></div>
         <img src="{{asset("images/los-memberform-bg.jpg")}}" alt="Background Img">
     </div>
+    <x-language-switcher />
     @vite(['resources/js/app.js'])
 </body>
 </html>
