@@ -366,11 +366,11 @@
       "choices": [
         {
           "label": "lang.de.label",
-          "value": "German"
+          "value": "DE"
         },
         {
           "label": "lang.fr.label",
-          "value": "French"
+          "value": "FR"
         }
       ],
       "validation": {
@@ -595,7 +595,7 @@
         },
         {
           "label": "Bern.label",
-          "value": "Bern"
+          "value": "Berne"
         },
         {
           "label": "Geneva.label",
@@ -619,7 +619,7 @@
         },
         {
           "label": "St. Gallen.label",
-          "value": "St. Gallen"
+          "value": "StGallen"
         },
         {
           "label": "Winterthur.label",
