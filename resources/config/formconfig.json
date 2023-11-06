@@ -366,11 +366,11 @@
       "choices": [
         {
           "label": "lang.de.label",
-          "value": "DE"
+          "value": "German"
         },
         {
           "label": "lang.fr.label",
-          "value": "FR"
+          "value": "French"
         }
       ],
       "validation": {
