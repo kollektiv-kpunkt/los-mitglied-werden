@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SupporterWelcome;
+use App\Mail\AdminInfo;
 
 class Supporter extends Model
 {
@@ -14,11 +17,13 @@ class Supporter extends Model
     protected $fillable = [
         'uuid',
         'migrated',
+        'failed',
         'data'
     ];
 
     protected $casts = [
         'migrated' => 'boolean',
+        'failed' => 'boolean',
         'data' => 'array'
     ];
 
@@ -49,5 +54,31 @@ class Supporter extends Model
             $this->next = null;
             return;
         }
+    }
+
+    /**
+     * Send E-Mails to supporter and Admin
+     *
+     * @param array $body
+     * @return boolean
+     */
+    public function sendEmails($body)
+    {
+        $supporter = Supporter::where('uuid', $body["uuid"])->first();
+        $salesforceID = $body["salesforceID"];
+        try {
+            Mail::to(env("ADMIN_EMAIL"))
+                ->send(new AdminInfo($supporter, $salesforceID));
+        } catch (\Exception $e) {
+            return false;
+        }
+        $supporterType = isset($supporter->data["membertype"]) ? "member" : "volunteer";
+        try {
+            Mail::to($supporter->data["email"])
+                ->send(new SupporterWelcome($supporter->data["lang"], $supporter, $supporterType));
+        } catch (\Exception $e) {
+            return false;
+        }
+        return true;
     }
 }

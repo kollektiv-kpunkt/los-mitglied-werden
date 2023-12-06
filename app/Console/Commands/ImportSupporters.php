@@ -44,11 +44,29 @@ class ImportSupporters extends Command
             }
             $response = Http::withBasicAuth(env("WEBHOOK_USER"), env("WEBHOOK_PW"))->post(env("WEBHOOK_URL"), $supporter->data);
             if ($response->ok()) {
+                $body = $response->json();
+                if (!$body["success"] == true) {
+                    Log::channel('supporters')->error("Failed: " . $supporter->id);
+                    Log::channel('supporters')->error($response->body());
+                    $supporter->migrated = true;
+                    $supporter->failed = true;
+                    $supporter->save();
+                    return;
+                }
                 $supporter->migrated = true;
                 $supporter->save();
                 Log::channel('supporters')->info("Migrated: " . $supporter->id);
                 Log::channel('supporters')->info($response->body());
+                $emailStatus = $supporter->sendEmails($body);
+                if (!$emailStatus) {
+                    Log::channel('supporters')->error("Email sending failed");
+                } else {
+                    Log::channel('supporters')->info("E-Mails sent successfully");
+                }
             } else {
+                $supporter->migrated = true;
+                $supporter->failed = true;
+                $supporter->save();
                 Log::channel('supporters')->error("Failed: " . $supporter->id);
                 Log::channel('supporters')->error($response->body());
             }

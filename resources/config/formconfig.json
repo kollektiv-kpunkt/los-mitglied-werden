@@ -97,7 +97,7 @@
         }
       },
       "next": {
-        "type_volunteer": "volunteertype",
+        "type_volunteer": "lang",
         "ELSE": "membertype"
       }
     },
@@ -379,6 +379,7 @@
         }
       },
       "next": {
+        "type_volunteer": "volunteertype",
         "membertype_Combo LOS/Milchjugend u22": "birthyear_required",
         "ELSE": "birthyear"
       }
