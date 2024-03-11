@@ -95,7 +95,7 @@ class ExportSupportersToEmail extends Command
             });
         $fields = array_unique($fields);
         $fields = array_merge(["id", "created_at", "updated_at"], $fields);
-        $fields = array_diff($fields, ["history"]);
+        $fields = array_diff($fields, ["history, next"]);
         $supporters = \App\Models\Supporter::whereDate('created_at', '>=', $startdate)
             ->whereDate('created_at', '<=', $enddate)
             ->get()
