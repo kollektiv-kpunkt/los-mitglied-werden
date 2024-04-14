@@ -18,12 +18,14 @@ class Supporter extends Model
         'uuid',
         'migrated',
         'failed',
+        'unfinished',
         'data'
     ];
 
     protected $casts = [
         'migrated' => 'boolean',
         'failed' => 'boolean',
+        'unfinished' => 'boolean',
         'data' => 'array'
     ];
 

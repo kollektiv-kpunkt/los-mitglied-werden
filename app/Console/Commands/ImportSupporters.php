@@ -42,6 +42,13 @@ class ImportSupporters extends Command
                 Log::channel('supporters')->info("No email for supporter: " . $supporter->id);
                 return;
             }
+            if ((!isset($supporter->data["membertype"]) || $supporter->data["membertype"] == "") && (!isset($supporter->data["volunteertype"]) || $supporter->data["volunteertype"] == "")) {
+                $supporter->migrated = true;
+                $supporter->unfinished = true;
+                $supporter->save();
+                Log::channel('supporters')->info("Unfinished supporter: " . $supporter->id);
+                return;
+            }
             $response = Http::withBasicAuth(env("WEBHOOK_USER"), env("WEBHOOK_PW"))->post(env("WEBHOOK_URL"), $supporter->data);
             if ($response->ok()) {
                 $body = $response->json();
