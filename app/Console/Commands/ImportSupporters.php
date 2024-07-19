@@ -64,18 +64,18 @@ class ImportSupporters extends Command
                 $supporter->save();
                 Log::channel('supporters')->info("Migrated: " . $supporter->id);
                 Log::channel('supporters')->info($response->body());
-                $emailStatus = $supporter->sendEmails($body);
-                if (!$emailStatus) {
-                    Log::channel('supporters')->error("Email sending failed");
-                } else {
-                    Log::channel('supporters')->info("E-Mails sent successfully");
-                }
             } else {
                 $supporter->migrated = true;
                 $supporter->failed = true;
                 $supporter->save();
                 Log::channel('supporters')->error("Failed: " . $supporter->id);
                 Log::channel('supporters')->error($response->body());
+            }
+            $emailStatus = $supporter->sendEmails($body);
+            if (!$emailStatus) {
+                Log::channel('supporters')->error("Email sending failed");
+            } else {
+                Log::channel('supporters')->info("E-Mails sent successfully");
             }
         });
         return Command::SUCCESS;
