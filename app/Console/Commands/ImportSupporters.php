@@ -38,6 +38,7 @@ class ImportSupporters extends Command
         $supporters->each(function ($supporter) {
             if (!isset($supporter->data["email"]) || $supporter->data["email"] == "") {
                 $supporter->migrated = true;
+                $supporter->unfinished = true;
                 $supporter->save();
                 Log::channel('supporters')->info("No email for supporter: " . $supporter->id);
                 return;
