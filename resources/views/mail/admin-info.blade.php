@@ -27,6 +27,9 @@
         <li><strong>Vorname:</strong> {{$supporter->data["fname"]}}</li>
         <li><strong>Nachname:</strong> {{$supporter->data["lname"]}}</li>
         <li><strong>E-Mail:</strong> {{$supporter->data["email"]}}</li>
+        @if (isset($supporter->data["address"]))
+            <li><strong>Adresse:</strong> {{$supporter->data["address"]}}</li>
+        @endif
         @if (isset($supporter->data["membertype"]))
             <li><strong>Mitgliedschaftstyp:</strong> {{$supporter->data["membertype"]}}</li>
         @endif
@@ -57,6 +60,9 @@
         <li><strong>Pr&eacute;nom :&nbsp;</strong> {{$supporter->data["fname"]}}</li>
         <li><strong>Nom de famille :</strong> {{$supporter->data["lname"]}}</li>
         <li><strong>E-mail :</strong> {{$supporter->data["email"]}}</li>
+        @if (isset($supporter->data["address"]))
+            <li><strong>Adresse:</strong> {{$supporter->data["address"]}}</li>
+        @endif
         @if (isset($supporter->data["membertype"]))
             <li><strong>Type de membre :</strong> {{$supporter->data["membertype"]}}</li>
         @endif
