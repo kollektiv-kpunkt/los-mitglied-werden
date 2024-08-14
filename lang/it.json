@@ -16,6 +16,8 @@
   "combo.optin.text": "Ti offriamo la possibilità di diventare membro sia per la LOS che per un'altra organizzazione, beneficiando così di una tariffa ridotta. Sei interessat*?",
   "combo.title": "Che tipo di membro combo vuoi diventare?",
   "combo.milchjugendU22.label": "Milchjugend & LOS, meno di 22 anni (60 CHF)",
+  "comboRegular.tgns.label": "TGNS & LOS (180 CHF)",
+  "comboReduced.tgns.label": "TGNS & LOS (95CHF)",
   "comboRegular.milchjugend.label": "Milchjugend & LOS, più di 22 anni (165 CHF)",
   "comboReduced.milchjugend.label": "Milchjugend & LOS, più di 22 anni (99 CHF)",
   "comboRegular.haz.label": "HAZ queer Zürich & LOS (250 CHF)",

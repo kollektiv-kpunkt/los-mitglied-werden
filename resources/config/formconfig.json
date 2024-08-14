@@ -218,6 +218,10 @@
       "name": "membertype",
       "choices": [
         {
+          "label": "comboRegular.tgns.label",
+          "value": "Combo LOS/TGNS regular"
+        },
+        {
           "label": "combo.milchjugendU22.label",
           "value": "Combo LOS/Milchjugend u22"
         },
@@ -249,6 +253,10 @@
       "direction": "horizontal",
       "name": "membertype",
       "choices": [
+        {
+          "label": "comboReduced.tgns.label",
+          "value": "Combo LOS/TGNS reduced"
+        },
         {
           "label": "combo.milchjugendU22.label",
           "value": "Combo LOS/Milchjugend u22"
